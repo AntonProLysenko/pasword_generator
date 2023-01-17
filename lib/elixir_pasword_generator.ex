@@ -1,18 +1,20 @@
 defmodule ElixirPaswordGenerator do
   @moduledoc """
-  Documentation for `ElixirPaswordGenerator`.
+  Generates random password depending on parameters, Module main function is "generate(opts)"
+  generate/1 takes a option map.
+
+  Options Example:
+      options = %{
+        "length" => "5",
+        "numbers" => "false",
+        "uppercase" => "0",
+        "symbols" => "false"
+      }
+
+  There are only 4 options "length", "numbers", "uppercase", "symbols"
   """
 
-  @doc """
-  Hello world.
 
-  ## Examples
+  @alowed_options [ :length, :numbers, :uppercase, :symbols]
 
-      iex> ElixirPaswordGenerator.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end
