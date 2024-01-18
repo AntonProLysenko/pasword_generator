@@ -101,6 +101,14 @@ defmodule ElixirPaswordGenerator do
     <<Enum.random(?a..?z)>>
   end
 
+  defp get(:uppercase) do
+    <<Enum.random(?A..?Z)>>
+  end
+
+  defp get(:numbers) do
+    Enum.random(1..9) |> Integer.to_string()
+  end
+
   defp gen_random_strings(length, bool_opts) do
     Enum.map(1..length, fn _ ->Enum.random(bool_opts) |> get() end)
   end
