@@ -105,6 +105,10 @@ defmodule ElixirPaswordGenerator do
     <<Enum.random(?A..?Z)>>
   end
 
+  defp get(:symbols) do
+    Enum.random(String.split("!#$%&()*+,-./:;<=>?@[]^_{|}~", "", trim: true))
+  end
+
   defp get(:numbers) do
     Enum.random(1..9) |> Integer.to_string()
   end

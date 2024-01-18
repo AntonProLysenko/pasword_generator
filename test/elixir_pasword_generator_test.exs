@@ -139,4 +139,76 @@ defmodule ElixirPaswordGeneratorTest do
 
     refute String.contains?(result, options.symbols)
   end
+
+
+
+
+
+
+  test "returns str with symbols", %{options_type: options} do
+    opts_with_symbols = %{
+      "length" => "5",
+      "numbers" => "false",
+      "symbols" => "true",
+      "uppercase" => "false"
+    }
+
+    {:ok, result} = ElixirPaswordGenerator.generate(opts_with_symbols)
+
+    assert String.contains?(result, options.symbols)
+
+    refute String.contains?(result, options.uppercase)
+    refute String.contains?(result, options.numbers)
+  end
+
+
+  test "returns str with all opts", %{options_type: options} do
+    all_opts = %{
+      "length" => "5",
+      "numbers" => "true",
+      "symbols" => "true",
+      "uppercase" => "true"
+    }
+
+    {:ok, result} = ElixirPaswordGenerator.generate(all_opts)
+
+    assert String.contains?(result, options.symbols)
+    assert String.contains?(result, options.uppercase)
+    assert String.contains?(result, options.numbers)
+  end
+
+
+
+  test "returns str with symbols and uppercase opts", %{options_type: options} do
+    opts_with_symbols_uppercase = %{
+      "length" => "5",
+      "numbers" => "false",
+      "symbols" => "true",
+      "uppercase" => "true"
+    }
+
+    {:ok, result} = ElixirPaswordGenerator.generate(opts_with_symbols_uppercase)
+
+    assert String.contains?(result, options.symbols)
+    assert String.contains?(result, options.uppercase)
+    refute String.contains?(result, options.numbers)
+  end
+
+
+  test "returns str with symbols and numbers opts", %{options_type: options} do
+    opts_with_symbols_uppercase = %{
+      "length" => "5",
+      "numbers" => "true",
+      "symbols" => "true",
+      "uppercase" => "false"
+    }
+
+    {:ok, result} = ElixirPaswordGenerator.generate(opts_with_symbols_uppercase)
+
+    assert String.contains?(result, options.symbols)
+    refute String.contains?(result, options.uppercase)
+    assert String.contains?(result, options.numbers)
+  end
+
+
 end
