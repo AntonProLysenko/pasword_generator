@@ -1,6 +1,6 @@
 defmodule ElixirPaswordGeneratorTest do
   use ExUnit.Case
-  doctest ElixirPaswordGenerator
+  # doctest ElixirPaswordGenerator if This line included test runs examples from module doc
 
   # test "greets the world" do
   #   assert ElixirPaswordGenerator.hello() == :world
@@ -8,29 +8,31 @@ defmodule ElixirPaswordGeneratorTest do
 
   setup do
     options = %{
-      "length" => "10",
-      "numbers" => "false",
-      "uppercase" => "false",
-      "symbols" => "false"
-    }
+        "length" => "5",
+        "numbers" => "false",
+        "symbols" => "false",
+        "uppercase" => "false"
+      }
 
     options_type = %{
       lowercase: Enum.map(?a.. ?z, & <<&1>>),
       numbers: Enum.map(0..9, & Integer.to_string(&1)),
       uppercase: Enum.map(?A..?Z, & <<&1>>),
-      symbols: String.split("!#$%&()*+,-./:;<>=@{}[]^_|~", "", trim: true)
+      symbols: String.split("!#$%&()*+,-./:;<=>?@[]^_{|}~", "", trim: true)
     }
-    {:ok, result} = ElixirPaswordGenerator.generate(options)
+
+    {:ok, return} = ElixirPaswordGenerator.generate(options)
 
 
     %{
       options_type: options_type,
-      result: result
+      result: return
     }
+
   end
 
-  test "returns a string", %{result: result} do
-    assert is_bitstring(result)
+  test "returns a string", %{result: return} do
+    assert is_bitstring(return)
   end
 
   test "returns error when no length is given" do
@@ -57,9 +59,9 @@ defmodule ElixirPaswordGeneratorTest do
     {:ok, result} = ElixirPaswordGenerator.generate(length_opt)
 
     assert String.contains?(result, options.lowercase)
-    refunt String.contains?(result, options.numbers)
-    refunt String.contains?(result, options.uppercase)
-    refunt String.contains?(result, options.symbols)
+    refute String.contains?(result, options.numbers)
+    refute String.contains?(result, options.uppercase)
+    refute String.contains?(result, options.symbols)
   end
 
   test "return error when opts values are not booleans" do
